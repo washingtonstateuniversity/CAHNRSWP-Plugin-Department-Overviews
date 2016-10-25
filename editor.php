@@ -1,14 +1,16 @@
 <?php 
 	require_once 'classes/class-dpto-editor.php'; 
 	$dpto = new DPTO_Editor();
+	$dpto->do_check_access();
 	$dpto->do_check_is_update();
 	$dpto->do_set_options_by_wp();
+	global $post;
 ?>
 <!doctype html>
 <html>
 <head>
 <meta charset="utf-8">
-<title>Untitled Document</title>
+<title><?php echo $post->post_title;?></title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="<?php echo plugin_dir_url(__FILE__); ?>js/Chart.bundle.js"></script>
 <style>
@@ -562,6 +564,8 @@ body form > header > nav a {
 						dptoajaxurl,
 						data,
 						function( response ){
+							
+							alert( response );
 							
 							depto.page.the_active_edit_item.html( response );
 							depto.form.update_wordcount( false );

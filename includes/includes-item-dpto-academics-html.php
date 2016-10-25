@@ -17,7 +17,7 @@
 	if ( ! is_array( $undergrad_ch ) ) $undergrad_ch = array(); 
 ?>
 <div id="item-dpto-academics" class="dpto-item">
-	<?php if ( $grad_ch || $undergrad_ch ):?><div class="chart-wrapper"><canvas id="adcademics-chart" width="200" height="300"></canvas><strong>AY Student Credit Hours</strong></div><?php endif;?>
+	<?php if ( $this->do_check_options( array( 'dpto_academics_grad_ch','dpto_academics_undergrad_ch' ) ) ):?><div class="chart-wrapper"><canvas id="adcademics-chart" width="200" height="300"></canvas><strong>AY Student Credit Hours</strong></div><?php endif;?>
 	<div class="list-header grad">Graduate</div>
     Master of Science/Art
     <ul>

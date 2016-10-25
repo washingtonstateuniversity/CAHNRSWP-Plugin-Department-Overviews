@@ -629,42 +629,58 @@ body form > header > nav a {
             	<div class="dept-item">
                     <?php echo $dpto->return_item_html( 'dpto-intro' );?>
                 </div>
+                <?php if ( $dpto->do_check_options( array('dpto_academics_pg_grad','dpto_academics_pg_phd','dpto_academics_pg_undergrad','dpto_academics_grad_ch' ) ) ):?>
                 <div class="dept-item">
                     <div class="item-header-text">Academics</div>
                     <div class="academics-item">
                     <?php echo $dpto->return_item_html( 'dpto-academics' );?>
                     </div>
                 </div>
+                <?php endif;?>
+                <?php if ( $dpto->do_check_options( array('dpto_research_content','dpto_research_discovery' ) ) ):?>
                 <div class="dept-item">
                     <div class="item-header-text">Research: Discovery/Translational</div>
                     <?php echo $dpto->return_item_html( 'dpto-research' );?>
                 </div>
+                <?php endif;?>
             </div>
             <div class="column column-two">
+            	<?php if ( $dpto->do_check_options( array('dpto_highlights_content' ) ) ):?>
             	<div class="dept-item">
                     <div class="item-header-text">Highlights</div>
                     <?php echo $dpto->return_item_html( 'dpto-highlights' );?>
                 </div>
+                <?php endif;?>
+                <?php if ( $dpto->do_check_options( array('dpto_scholarship_content' ) ) ):?>
                 <div class="dept-item">
                     <div class="item-header-text">Scholarship</div>
                     <?php echo $dpto->return_item_html( 'dpto-scholarship' );?>
                 </div>
+                <?php endif;?>
+                <?php if ( $dpto->do_check_options( array('dpto_service_content','dpto_service_volunteers','dpto_service_hours' ) ) ):?>
                 <div class="dept-item">
                     <div class="item-header-text">Service and Outreach</div>
                     <?php echo $dpto->return_item_html( 'dpto-service' );?>
                 </div>
+                <?php endif;?>
+                <?php if ( $dpto->do_check_options( array('dpto_property_content' ) ) ):?>
                 <div class="dept-item">
                     <div class="item-header-text">Intellectual Property & Commercialization</div>
                     <?php echo $dpto->return_item_html( 'dpto-property' );?>
                 </div>
+                <?php endif;?>
+                <?php if ( $dpto->do_check_options( array( 'dpto_impacts_content' ) ) ):?>
                 <div class="dept-item">
                     <div class="item-header-text">Impacts</div>
                     <?php echo $dpto->return_item_html( 'dpto-impacts' );?>
                 </div>
+                <?php endif;?>
+                <?php if ( $dpto->do_check_options( array( 'dpto_facilities_content' ) ) ):?>
                  <div class="dept-item">
                     <div class="item-header-text">Facilities</div>
                     <?php echo $dpto->return_item_html( 'dpto-facilities' );?>
                 </div>
+                <?php endif;?>
             </div>
         </div>
         <div class="row single-layout">

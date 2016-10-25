@@ -10,7 +10,7 @@
 	 
 ?>
 <div id="item-dpto-research" class="dpto-item">
-	<?php if ( $discovery || $trans ):?><div class="chart-wrapper"><canvas id="research-chart" width="200" height="300"></canvas><strong>Expenditures</strong></div><?php endif;?>
+	<?php if ( $this->do_check_options( array( 'dpto_research_discovery','dpto_research_transitional' ) ) ):?><div class="chart-wrapper"><canvas id="research-chart" width="200" height="300"></canvas><strong>Expenditures</strong></div><?php endif;?>
     <?php echo apply_filters( 'the_content' , $this->get_option( 'dpto_research_content' ) ); ?>
 </div>
                         <?php if ( $discovery || $trans ):?>

@@ -2,6 +2,14 @@
 
 class DPTO_Editor {
 	
+	protected $access_keys = array(
+		'R7R4n4lh8L9k7piO3n10Tpk0nENCr3a0',
+		'cDjsih3x7drhWJ5EWrkI7K9rK7a55825',
+		'hh5Kf2d6PqCnYnh2BGCTl4R2d0vW8Xip',
+		'kP7EDWbKzi4p06lp8sO157Iukz3Kg62o',
+		'4k2NKc310kq68q3uMjQ3dUF2xNImdyH9',
+		'9kE6ase5i6BsdOKFrU3cq67v0OnfY1fp',
+	);
 	protected $options = array();
 	protected $option_fields = array(
 		'dpto_title'                  => 'text',
@@ -77,19 +85,74 @@ class DPTO_Editor {
 	} // end do_check_is_update
 	
 	
-	public function do_save(){
+	public function do_check_options( $options ){
 		
-		$options = $this->get_option_fields();
-		
-		foreach( $options as $option_key => $type ){
+		if ( ! is_array( $options ) ){
 			
-			update_option( $option_key , $this->get_option( $option_key ) );
+			$options = array( $options );
+			
+		} // end if
+		
+		foreach( $options as $option ){
+			
+			$value = $this->get_option( $option );
+			
+			if ( is_array( $value ) ){
+				
+				foreach( $value as $index => $subvalue ){
+					
+					if ( $subvalue ) return true;
+					
+				} // end foreach
+				
+			} else if ( $value ){
+				
+				return true;
+				
+			} // end if
 			
 		} // end foreach
+		
+		return false;
+		
+	} // end do_check_options
+	
+	
+	public function do_check_access(){
+		
+		if ( empty( $_GET['access-key'] ) || ! in_array( $_GET['access-key'] , $this->access_keys ) ){
+			
+			wp_redirect( get_bloginfo( 'url' ) );
+			
+			exit;
+			
+		} // end if
+		
+	} // end do_check_access
+	
+	
+	public function do_save(){
+		
+		global $post;
+		
+		if ( 'department_overview' == $post->post_type ){
+		
+			$options = $this->get_option_fields();
+			
+			foreach( $options as $option_key => $type ){
+				
+				update_post_meta( $post->ID , $option_key , $this->get_option( $option_key ) );
+				//update_option( $option_key , $this->get_option( $option_key ) );
+				
+			} // end foreach
+		
+		} // end if
 		
 	} // end do_save
 	
 	public function return_wp_options(){
+		
+		global $post;
 		
 		$options = array();
 		
@@ -97,7 +160,7 @@ class DPTO_Editor {
 		
 		foreach( $option_fields as $option_key => $type ){
 			
-			$options[ $option_key ] = get_option( $option_key , '' );
+			$options[ $option_key ] = get_post_meta( $post->ID , $option_key , true );
 			
 		} // end foreach
 		
@@ -294,7 +357,7 @@ class DPTO_Editor {
 			
 			foreach( $fields['html'] as $text_field ){
 				
-				if ( isset( $_POST[ $text_field ] ) ) $clean[ $text_field ] = wp_kses_post( $_POST[ $text_field ] );
+				if ( isset( $_POST[ $text_field ] ) ) $clean[ $text_field ] = wp_kses_post( stripslashes ( $_POST[ $text_field ] ) );
 				
 			} // end foreach
 			
